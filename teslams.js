@@ -74,12 +74,16 @@ var all = exports.all = function (options, cb) {
 			var data,
 				i;
 			
+			if (err) {
+				err = 'API Call Error: ' + err;
+			}
+			
 			if (body) {
 				try {
-					data = JSON.parse(body);
+					data = JSONbig.parse(body);
 				} catch (e) {
 					if (err) {
-						return cb('API Call Error: ' + err, body);
+						return cb(err, body);
 					} else {
 						return cb('JSON Parse Error: ' + e, body);
 					}
