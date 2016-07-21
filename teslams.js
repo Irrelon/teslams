@@ -74,16 +74,19 @@ var all = exports.all = function (options, cb) {
 			var data,
 				i;
 			
-			if (!err) {
+			if (body) {
 				try {
 					data = JSON.parse(body);
-					return cb(false, data);
 				} catch (e) {
-					return cb(e, body);
+					if (err) {
+						return cb('API Call Error: ' + err, body);
+					} else {
+						return cb('JSON Parse Error: ' + e, body);
+					}
 				}
-			} else {
-				return cb(err, body);
 			}
+			
+			return cb(err, data);
 		});
 	});
 };
