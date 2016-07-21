@@ -55,7 +55,7 @@ var all = exports.all = function (options, cb) {
 			http_header = {
 				'Authorization': 'Bearer ' + token,
 				'Content-Type': 'application/json; charset=utf-8',
-				'User-Agent': user_agent,
+				'User-Agent': user_agent
 				//'Accept-Encoding': 'gzip'
 				// 'Accept-Encoding': 'gzip,deflate'
 			};
@@ -64,12 +64,27 @@ var all = exports.all = function (options, cb) {
 		}
 		
 		if ((!!error) || ((response.statusCode !== 200) && (response.statusCode !== 302))) return report(error, response, body, cb);
+		
 		request({
 			method: 'GET',
 			url: portal + '/vehicles',
 			gzip: true,
 			headers: http_header
-		}, cb);
+		}, function (err, resp, body) {
+			var data,
+				i;
+			
+			if (!err) {
+				try {
+					data = JSON.parse(body);
+					return cb(false, data);
+				} catch (e) {
+					return cb(e, body);
+				}
+			} else {
+				return cb(err, body);
+			}
+		});
 	});
 };
 
