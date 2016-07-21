@@ -133,7 +133,7 @@ function mobile_enabled (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('mobile_enabled', body, cb);
@@ -174,7 +174,7 @@ function get_climate_state (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('climate_state', body, cb);
@@ -193,7 +193,7 @@ function get_drive_state (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('drive_state', body, cb);
@@ -212,7 +212,7 @@ function get_vehicle_state (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('vehicle_state', body, cb);
@@ -231,7 +231,7 @@ function get_gui_settings (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('gui_settings', body, cb);
@@ -250,7 +250,7 @@ function wake_up (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 			
 		} catch (err) {
@@ -270,7 +270,7 @@ function open_charge_port (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('charge_port_door_open', body, cb);
@@ -302,7 +302,7 @@ function charge_state (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('charge_' + state, body, cb);
@@ -339,7 +339,7 @@ function charge_range (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('charge_' + range, body, cb);
@@ -358,7 +358,7 @@ function charge_range (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('set_charge_limit', body, cb);
@@ -383,7 +383,7 @@ function flash (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('flash_lights', body, cb);
@@ -402,7 +402,7 @@ function honk (vid, cb) {
 		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 		try {
 			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(data.response);
+			if (typeof cb == 'function') return cb(false, data.response);
 			else return true;
 		} catch (err) {
 			return report2('honk_horn', body, cb);
@@ -426,7 +426,7 @@ function door_lock (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('door_lock', body, cb);
@@ -442,7 +442,7 @@ function door_lock (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('door_unlock', body, cb);
@@ -487,13 +487,13 @@ function set_temperature (params, cb) {
 			headers: http_header,
 			form: {
 				"driver_temp": dtemp.toString(),
-				"passenger_temp": ptemp.toString(),
+				"passenger_temp": ptemp.toString()
 			}
 		}, function (error, response, body) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('set_temps', body, cb);
@@ -529,7 +529,7 @@ function auto_conditioning (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('auto_conditioning_start', body, cb);
@@ -545,7 +545,7 @@ function auto_conditioning (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('auto_conditioning_stop', body, cb);
@@ -594,7 +594,7 @@ function sun_roof (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('sun_roof_control ' + state, body, cb);
@@ -614,7 +614,7 @@ function sun_roof (params, cb) {
 			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
 			try {
 				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(data.response);
+				if (typeof cb == 'function') return cb(false, data.response);
 				else return true;
 			} catch (err) {
 				return report2('sun_roof_control move', body, cb);
