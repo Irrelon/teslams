@@ -148,18 +148,16 @@ function get_charge_state (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/data_request/charge_state',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') {
-				return cb(false, data.response);
-			} else {
-				return true;
-			}
-		} catch (err) {
-			return report2('charge_state', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.get_charge_state = get_charge_state;
