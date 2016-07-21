@@ -168,15 +168,16 @@ function get_climate_state (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/data_request/climate_state',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('climate_state', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.get_climate_state = get_climate_state;
@@ -187,15 +188,16 @@ function get_drive_state (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/data_request/drive_state',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('drive_state', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.get_drive_state = get_drive_state;
@@ -206,15 +208,16 @@ function get_vehicle_state (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/data_request/vehicle_state',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('vehicle_state', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.get_vehicle_state = get_vehicle_state;
@@ -225,15 +228,16 @@ function get_gui_settings (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/data_request/gui_settings',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('gui_settings', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.get_gui_settings = get_gui_settings;
@@ -244,16 +248,16 @@ function wake_up (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/command/wake_up',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-			
-		} catch (err) {
-			return report2('wake_up', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.wake_up = wake_up;
@@ -264,15 +268,16 @@ function open_charge_port (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/command/charge_port_door_open',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('charge_port_door_open', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.open_charge_port = open_charge_port;
@@ -296,15 +301,16 @@ function charge_state (params, cb) {
 			url: portal + '/vehicles/' + vid + '/command/charge_' + state,
 			gzip: true,
 			headers: http_header
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
 			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('charge_' + state, body, cb);
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
 			}
+			
+			cb(err, data.response);
 		});
 	} else {
 		if (typeof cb == 'function') return cb(new Error("Invalid charge state = " + state));
@@ -333,15 +339,16 @@ function charge_range (params, cb) {
 			url: portal + '/vehicles/' + vid + '/command/charge_' + range,
 			gzip: true,
 			headers: http_header
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
 			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('charge_' + range, body, cb);
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
 			}
+			
+			cb(err, data.response);
 		});
 	} else if (range == "set" && (percent >= 50) && (percent <= 100)) {
 		request({
@@ -352,15 +359,16 @@ function charge_range (params, cb) {
 			form: {
 				"percent": percent.toString()
 			}
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
 			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('set_charge_limit', body, cb);
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
 			}
+			
+			cb(err, data.response);
 		});
 	} else {
 		if (typeof cb == 'function') return cb(new Error("Invalid charge range = " + range));
@@ -377,15 +385,16 @@ function flash (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/command/flash_lights',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('flash_lights', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.flash = flash;
@@ -396,15 +405,16 @@ function honk (vid, cb) {
 		url: portal + '/vehicles/' + vid + '/command/honk_horn',
 		gzip: true,
 		headers: http_header
-	}, function (error, response, body) {
-		if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+	}, function (err, resp, body) {
+		var data;
+		
 		try {
-			var data = JSON.parse(body);
-			if (typeof cb == 'function') return cb(false, data.response);
-			else return true;
-		} catch (err) {
-			return report2('honk_horn', body, cb);
+			data = JSON.parse(body);
+		} catch (e) {
+			cb(e, body);
 		}
+		
+		cb(err, data.response);
 	});
 }
 exports.honk = honk;
@@ -420,15 +430,16 @@ function door_lock (params, cb) {
 			url: portal + '/vehicles/' + vid + '/command/door_lock',
 			gzip: true,
 			headers: http_header
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
 			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('door_lock', body, cb);
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
 			}
+			
+			cb(err, data.response);
 		});
 	} else if (state == "unlock" || state === false || state == "off" || state == "open") {
 		request({
@@ -436,15 +447,16 @@ function door_lock (params, cb) {
 			url: portal + '/vehicles/' + vid + '/command/door_unlock',
 			gzip: true,
 			headers: http_header
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
 			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('door_unlock', body, cb);
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
 			}
+			
+			cb(err, data.response);
 		});
 	} else {
 		if (typeof cb == 'function') return cb(new Error("Invalid door lock state = " + state));
