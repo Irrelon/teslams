@@ -103,6 +103,16 @@ var vehicles = exports.vehicles = function (options, cb) {
 	all(options, function (error, response, body) {
 		var data;
 		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
+		
 		try {
 			data = JSONbig.parse(body);
 		} catch (err) {
@@ -151,6 +161,16 @@ function get_charge_state (vid, cb) {
 	}, function (err, resp, body) {
 		var data;
 		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
+		
 		try {
 			data = JSON.parse(body);
 		} catch (e) {
@@ -170,6 +190,16 @@ function get_climate_state (vid, cb) {
 		headers: http_header
 	}, function (err, resp, body) {
 		var data;
+		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
 		
 		try {
 			data = JSON.parse(body);
@@ -191,13 +221,23 @@ function get_drive_state (vid, cb) {
 	}, function (err, resp, body) {
 		var data;
 		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
+		
 		try {
 			data = JSON.parse(body);
 		} catch (e) {
-			cb(e, body);
+			return cb(e, body);
 		}
 		
-		cb(err, data.response);
+		return cb(err, data.response);
 	});
 }
 exports.get_drive_state = get_drive_state;
@@ -210,6 +250,16 @@ function get_vehicle_state (vid, cb) {
 		headers: http_header
 	}, function (err, resp, body) {
 		var data;
+		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
 		
 		try {
 			data = JSON.parse(body);
@@ -231,6 +281,16 @@ function get_gui_settings (vid, cb) {
 	}, function (err, resp, body) {
 		var data;
 		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
+		
 		try {
 			data = JSON.parse(body);
 		} catch (e) {
@@ -251,6 +311,16 @@ function wake_up (vid, cb) {
 	}, function (err, resp, body) {
 		var data;
 		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
+		
 		try {
 			data = JSON.parse(body);
 		} catch (e) {
@@ -270,6 +340,16 @@ function open_charge_port (vid, cb) {
 		headers: http_header
 	}, function (err, resp, body) {
 		var data;
+		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
 		
 		try {
 			data = JSON.parse(body);
@@ -303,6 +383,16 @@ function charge_state (params, cb) {
 			headers: http_header
 		}, function (err, resp, body) {
 			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
+			}
 			
 			try {
 				data = JSON.parse(body);
@@ -342,6 +432,16 @@ function charge_range (params, cb) {
 		}, function (err, resp, body) {
 			var data;
 			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
+			}
+			
 			try {
 				data = JSON.parse(body);
 			} catch (e) {
@@ -361,6 +461,16 @@ function charge_range (params, cb) {
 			}
 		}, function (err, resp, body) {
 			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
+			}
 			
 			try {
 				data = JSON.parse(body);
@@ -388,6 +498,16 @@ function flash (vid, cb) {
 	}, function (err, resp, body) {
 		var data;
 		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
+		
 		try {
 			data = JSON.parse(body);
 		} catch (e) {
@@ -407,6 +527,16 @@ function honk (vid, cb) {
 		headers: http_header
 	}, function (err, resp, body) {
 		var data;
+		
+		if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+			err = 'Server Error';
+			data = {
+				err: body,
+				response: {}
+			};
+			
+			return cb(err, data.response);
+		}
 		
 		try {
 			data = JSON.parse(body);
@@ -433,6 +563,16 @@ function door_lock (params, cb) {
 		}, function (err, resp, body) {
 			var data;
 			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
+			}
+			
 			try {
 				data = JSON.parse(body);
 			} catch (e) {
@@ -449,6 +589,16 @@ function door_lock (params, cb) {
 			headers: http_header
 		}, function (err, resp, body) {
 			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
+			}
 			
 			try {
 				data = JSON.parse(body);
