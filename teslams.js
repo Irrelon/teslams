@@ -753,6 +753,13 @@ exports.auto_conditioning = auto_conditioning;
 exports.CLIMATE_OFF = CLIMATE_OFF;
 exports.CLIMATE_ON = CLIMATE_ON;
 
+exports.hvac = function (vid, onOff, cb) {
+	auto_conditioning({
+		id: vid,
+		climate: onOff
+	}, cb);
+};
+
 var ROOF_CLOSE = 0;
 var ROOF_VENT = 1;
 var ROOF_COMFORT = 2;
