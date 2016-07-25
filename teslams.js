@@ -770,15 +770,28 @@ function sun_roof (params, cb) {
 				'state': 'move',
 				'percent': percent.toString()
 			}
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
-			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('sun_roof_control move', body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
+			console.log('SunRoof', err, body);
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
 			}
+			
+			try {
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
+			}
+			
+			cb(err, data.response);
 		});
 	} else {
 		if (typeof cb == 'function') return cb(new Error("Invalid sun roof state " + util.inspect(params)));
