@@ -679,6 +679,20 @@ exports.set_temperature = set_temperature;
 exports.TEMP_HI = TEMP_HI;
 exports.TEMP_LO = TEMP_LO;
 
+exports.setDriverClimateTemp = function (vid, temp, cb) {
+	set_temperature({
+		id: vid,
+		dtemp: temp
+	}, cb);
+};
+
+exports.setPassengerClimateTemp = function (vid, temp, cb) {
+	set_temperature({
+		id: vid,
+		ptemp: temp
+	}, cb);
+};
+
 var CLIMATE_OFF = 0;
 var CLIMATE_ON = 1;
 function auto_conditioning (params, cb) {
