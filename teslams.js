@@ -649,15 +649,26 @@ function set_temperature (params, cb) {
 				"driver_temp": dtemp.toString(),
 				"passenger_temp": ptemp.toString()
 			}
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
-			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('set_temps', body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
 			}
+			
+			try {
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
+			}
+			
+			cb(err, data.response);
 		});
 	} else {
 		if (typeof cb == 'function') return cb(new Error('Invalid temperature setting (' + dtemp + 'C), Passenger (' + ptemp + 'C)'));
@@ -685,15 +696,26 @@ function auto_conditioning (params, cb) {
 			url: portal + '/vehicles/' + vid + '/command/auto_conditioning_start',
 			gzip: true,
 			headers: http_header
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
-			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('auto_conditioning_start', body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
 			}
+			
+			try {
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
+			}
+			
+			cb(err, data.response);
 		});
 	} else if (state == "stop" || state === false || state == "off") {
 		request({
@@ -701,15 +723,26 @@ function auto_conditioning (params, cb) {
 			url: portal + '/vehicles/' + vid + '/command/auto_conditioning_stop',
 			gzip: true,
 			headers: http_header
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
-			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('auto_conditioning_stop', body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
 			}
+			
+			try {
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
+			}
+			
+			cb(err, data.response);
 		});
 	} else {
 		if (typeof cb == 'function') return cb(new Error("Invalid auto conditioning state = " + state));
@@ -750,15 +783,26 @@ function sun_roof (params, cb) {
 			form: {
 				'state': state
 			}
-		}, function (error, response, body) {
-			if ((!!error) || (response.statusCode !== 200)) return report(error, response, body, cb);
-			try {
-				var data = JSON.parse(body);
-				if (typeof cb == 'function') return cb(false, data.response);
-				else return true;
-			} catch (err) {
-				return report2('sun_roof_control ' + state, body, cb);
+		}, function (err, resp, body) {
+			var data;
+			
+			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
+				err = 'Server Error';
+				data = {
+					err: body,
+					response: {}
+				};
+				
+				return cb(err, data.response);
 			}
+			
+			try {
+				data = JSON.parse(body);
+			} catch (e) {
+				cb(e, body);
+			}
+			
+			cb(err, data.response);
 		});
 	} else if ((state == "move") && (percent >= 0) && (percent <= 100)) {
 		request({
@@ -772,8 +816,6 @@ function sun_roof (params, cb) {
 			}
 		}, function (err, resp, body) {
 			var data;
-			
-			console.log('SunRoof', err, body);
 			
 			if (!(resp && resp.statusCode && resp.statusCode === 200)) {
 				err = 'Server Error';
