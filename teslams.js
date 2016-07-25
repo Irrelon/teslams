@@ -791,6 +791,14 @@ exports.ROOF_VENT = ROOF_VENT;
 exports.ROOF_COMFORT = ROOF_COMFORT;
 exports.ROOF_OPEN = ROOF_OPEN;
 
+exports.sunRoofMove = function (vid, percent, cb) {
+	sun_roof({
+		id: vid,
+		roof: 'move',
+		percent: percent
+	}, cb);
+};
+
 //left off here//
 // Streaming API stuff is below. Everything above is the REST API 
 //
